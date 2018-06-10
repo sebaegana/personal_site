@@ -1,0 +1,9 @@
+name: "segana-website"
+output_dir: "."
+navbar:
+  title: "Segana Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About Me"
+      href: about.html
