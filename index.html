@@ -22,6 +22,13 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -200,7 +207,34 @@ $(document).ready(function () {
 </div>
 
 
-<p>Hello, World!</p>
+<p>This example, was made following this manual: <a href="https://www.r-bloggers.com/r-markdown-and-knitr-tutorial-part-1/%7D%7BManual">R-Markdown and Knitr Tutorial (Part 1)</a>, from R-bloggers.</p>
+<div id="sample-r-markdown-document" class="section level1">
+<h1>Sample R-Markdown document</h1>
+<p>This is a code block !</p>
+<pre class="r"><code># This is a R-code chunk
+
+source(&quot;Yahoo stock Data Pull.R&quot;)
+
+AAPL = get.hist.quote(instrument=&quot;AAPL&quot;, start=&quot;2012-01-01&quot;, end=&quot;2017-12-31&quot;, quote=&quot;AdjClose&quot;, provider=&quot;yahoo&quot;, origin=&quot;1970-01-01&quot;, compression=&quot;m&quot;, retclass=&quot;zoo&quot;)
+IBM = get.hist.quote(instrument=&quot;IBM&quot;, start=&quot;2012-01-01&quot;, end=&quot;2017-12-31&quot;, quote=&quot;AdjClose&quot;, provider=&quot;yahoo&quot;, origin=&quot;1970-01-01&quot;, compression=&quot;m&quot;, retclass=&quot;zoo&quot;)</code></pre>
+</div>
+<div id="my-firts-plotly-chart" class="section level1">
+<h1>My firts plotly Chart !</h1>
+<pre class="r"><code># Plotly chart
+mat &lt;- data.frame(Date = index(AAPL), AAPL = round(AAPL, 2), BVSP = round(IBM,2))
+colnames(mat) &lt;- c(&quot;Date&quot;, &quot;AAPL&quot;, &quot;IBM&quot;)
+
+p &lt;- mat %&gt;%
+  plot_ly(x = mat$Date2, y = mat$AAPL, type = &quot;scatter&quot;, mode = &quot;lines&quot;, fill = &quot;tozeroy&quot;, name = &quot;Microsoft&quot;) %&gt;%
+  add_trace(y = mat$IBM, fill = &quot;tonexty&quot;, name = &quot;IBM&quot;) %&gt;%
+  layout(title = &quot;Stock Prices&quot;,
+        xaxis = list(title = &quot;Time&quot;),
+        yaxis = list(title = &quot;Stock Prices&quot;))
+
+p</code></pre>
+<div id="31303ac83beb" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="31303ac83beb">{"x":{"visdat":{"313072555c7e":["function () ","plotlyVisDat"]},"cur_data":"313072555c7e","attrs":{"313072555c7e":{"x":null,"y":[43.98,52.26,57.76,56.26,55.66,56.26,58.84,64.09,66.25,59.12,58.12,54.59,46.72,45.28,47.32,47.34,48.08,44.44,50.71,54.6,56,61.4,65.32,68.69,61.29,64.43,68.57,75.39,80.87,86.47,88.95,95.37,94.21,100.99,111.21,103.66,110.03,120.64,117.32,118,122.84,118.76,114.85,106.91,104.91,113.66,112.51,100.54,92.98,92.35,104.67,90.02,95.9,92.37,100.69,102.51,109.82,110.3,107.36,113.09,118.49,133.76,140.88,140.87,149.8,141.82,146.45,161.49,152.36,167.11,169.88,167.9],"mode":"lines","fill":"tozeroy","name":"Microsoft","alpha":1,"sizes":[10,100],"type":"scatter"},"313072555c7e.1":{"x":null,"y":[156.81,160.18,170.54,169.26,157.67,160.53,160.86,159.93,171,160.35,156.67,158.59,168.12,166.27,177.34,168.39,172.95,159.63,162.91,152.25,155.45,150.44,150.83,158.3,149.11,156.28,163.35,166.72,156.45,154.72,163.6,164.14,162.99,141.15,139.24,138.69,132.53,139.99,139.72,149.11,147.69,143.77,143.18,130.72,129.2,124.84,124.25,123.8,112.26,117.87,137.63,132.62,139.71,140.6,148.79,147.18,148.42,143.6,151.57,156.5,164.54,169.54,165.48,152.32,145.04,147.61,138.82,137.24,140.68,149.39,144.6,150.26],"mode":"lines","fill":"tonexty","name":"IBM","alpha":1,"sizes":[10,100],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Stock Prices","xaxis":{"domain":[0,1],"title":"Time"},"yaxis":{"domain":[0,1],"title":"Stock Prices"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"data":[{"y":[43.98,52.26,57.76,56.26,55.66,56.26,58.84,64.09,66.25,59.12,58.12,54.59,46.72,45.28,47.32,47.34,48.08,44.44,50.71,54.6,56,61.4,65.32,68.69,61.29,64.43,68.57,75.39,80.87,86.47,88.95,95.37,94.21,100.99,111.21,103.66,110.03,120.64,117.32,118,122.84,118.76,114.85,106.91,104.91,113.66,112.51,100.54,92.98,92.35,104.67,90.02,95.9,92.37,100.69,102.51,109.82,110.3,107.36,113.09,118.49,133.76,140.88,140.87,149.8,141.82,146.45,161.49,152.36,167.11,169.88,167.9],"mode":"lines","fill":"tozeroy","name":"Microsoft","type":"scatter","line":{"fillcolor":"rgba(31,119,180,1)","color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"y":[156.81,160.18,170.54,169.26,157.67,160.53,160.86,159.93,171,160.35,156.67,158.59,168.12,166.27,177.34,168.39,172.95,159.63,162.91,152.25,155.45,150.44,150.83,158.3,149.11,156.28,163.35,166.72,156.45,154.72,163.6,164.14,162.99,141.15,139.24,138.69,132.53,139.99,139.72,149.11,147.69,143.77,143.18,130.72,129.2,124.84,124.25,123.8,112.26,117.87,137.63,132.62,139.71,140.6,148.79,147.18,148.42,143.6,151.57,156.5,164.54,169.54,165.48,152.32,145.04,147.61,138.82,137.24,140.68,149.39,144.6,150.26],"mode":"lines","fill":"tonexty","name":"IBM","type":"scatter","line":{"fillcolor":"rgba(255,127,14,1)","color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
+</div>
 
 
 
