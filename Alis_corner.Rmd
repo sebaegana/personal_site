@@ -1,7 +1,5 @@
 ---
 title: "Hi, I'm Ali"
-output: 
-  html_document
 ---
 
 I'm Sebastian's partner :)
