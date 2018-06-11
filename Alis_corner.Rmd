@@ -1,0 +1,12 @@
+---
+title: "Hi, I'm Ali"
+output: 
+  html_document
+---
+
+I'm Sebastian's partner :)
+
+
+```{r pressure, echo=FALSE, out.width = '50%'}
+knitr::include_graphics("uno.png")
+```
