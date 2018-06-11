@@ -21,11 +21,13 @@ IBM = get.hist.quote(instrument="IBM", start="2012-01-01", end="2017-12-31", quo
 
 ```{r Code Block 2, message=FALSE, warning=FALSE, fig.align="center"}
 # Plotly chart
-mat <- data.frame(Date = index(AAPL), AAPL = round(AAPL, 2), BVSP = round(IBM,2))
+Date2 <- seq(from = as.Date("2012-01-01"), to = as.Date("2017-12-31"), by = "month")
+
+mat <- data.frame(Date = Date2, AAPL = round(AAPL, 2), BVSP = round(IBM,2))
 colnames(mat) <- c("Date", "AAPL", "IBM")
 
 p <- mat %>%
-  plot_ly(x = mat$Date2, y = mat$AAPL, type = "scatter", mode = "lines", fill = "tozeroy", name = "Microsoft") %>%
+  plot_ly(x = mat$Date, y = mat$AAPL, type = "scatter", mode = "lines", fill = "tozeroy", name = "Microsoft") %>%
   add_trace(y = mat$IBM, fill = "tonexty", name = "IBM") %>%
   layout(title = "Stock Prices",
         xaxis = list(title = "Time"),
