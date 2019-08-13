@@ -12,12 +12,12 @@ if (!require("zoo")) {
   install.packages("zoo")
 }
 
-AAPL = get.hist.quote(instrument="AAPL", start="2012-01-01", end="2017-12-31", quote="AdjClose", provider="yahoo", origin="1970-01-01", compression="m", retclass="zoo")
-IBM = get.hist.quote(instrument="IBM", start="2012-01-01", end="2017-12-31", quote="AdjClose", provider="yahoo", origin="1970-01-01", compression="m", retclass="zoo")
+AAPL = get.hist.quote(instrument="AAPL", start="2012-01-01", end="2018-12-31", quote="AdjClose", provider="yahoo", origin="1970-01-01", compression="m", retclass="zoo")
+IBM = get.hist.quote(instrument="IBM", start="2012-01-01", end="2018-12-31", quote="AdjClose", provider="yahoo", origin="1970-01-01", compression="m", retclass="zoo")
 
 library(plotly)
 
-Date2 <- seq(from = as.Date("2012-01-01"), to = as.Date("2017-12-31"), by = "month")
+Date2 <- seq(from = as.Date("2012-01-01"), to = as.Date("2018-12-31"), by = "month")
 
 mat <- data.frame(Date = Date2, AAPL = round(AAPL, 2), BVSP = round(IBM,2))
 colnames(mat) <- c("Date", "AAPL", "IBM")

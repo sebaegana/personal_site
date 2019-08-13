@@ -1,3 +1,2 @@
-setwd("G:/Mi unidad/Be the BEST/personal_site")
-
+library("rmarkdown")
 rmarkdown::render_site()
