@@ -9,5 +9,5 @@ navbar:
       href: about.html
     - text: "Ali's Corner"
       href: Alis_corner.html
-    - text: "hola"
-      href: hola.html
+    - text: "Plotly Example"
+      href: plotly_example.html
