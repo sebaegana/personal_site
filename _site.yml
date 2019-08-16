@@ -11,3 +11,8 @@ navbar:
       href: Alis_corner.html
     - text: "Plotly Example"
       href: plotly_example.html
+  right:
+    - icon: fa-linkedin
+      href: https://www.linkedin.com/in/sebastian-egana-santibanez/
+    - icon: fa-github-square
+      href: https://github.com/sebaegana
